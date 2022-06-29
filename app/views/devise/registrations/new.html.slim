@@ -1,0 +1,46 @@
+.container
+  .row
+    .col-lg-10.col-xl-9.mx-auto
+      .card.flex-row.my-5.border-0.shadow.rounded-3.overflow-hidden
+        .card-img-left.d-none.d-md-flex
+          == image_tag  "login.jpg" 
+        .card-body.p-4.p-sm-5
+          h5.card-title.text-center.mb-5.fw-light.fs-5.font-weight-bold
+            | Register
+          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            .field
+              = f.label :first_name
+              br
+              = f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control", required: true
+            .field
+              = f.label :last_name
+              br
+              = f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: "form-control", required: true
+            .field
+              = f.label :phone
+              br
+              = f.text_field :phone, autofocus: true, autocomplete: "phone", class: "form-control", required: true
+            .field
+              = f.label :email
+              br
+              = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true
+            .field
+              = f.label :password
+              - if @minimum_password_length
+                em
+                  | (
+                  = @minimum_password_length
+                  |  characters minimum)
+              br
+              = f.password_field :password, autocomplete: "new-password", class: "form-control", required: true
+            .field
+              = f.label :password_confirmation
+              br
+              = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", required: true
+            .field
+              = f.file_field :profile_photo
+            .actions
+              = f.submit "Sign up", class: "btn btn-lg btn-primary btn-login fw-bold text-uppercase"
+              .btn.btn-sm.fw-bold.btn-login.text-uppercase.ml-3
+                = render "devise/shared/links"

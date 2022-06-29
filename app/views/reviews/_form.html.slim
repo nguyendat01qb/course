@@ -1,0 +1,22 @@
+form.add-review
+  h1
+    | Add a Review
+  label
+    | Your Rating
+  #user_stars[data-score-name="value"]
+  br
+  label[for="review-text"]
+    | Your Review
+  textarea#review-text[name="Your Review"]
+  - if current_user
+    span.course-review-form
+      | Submit
+  - else
+    span.course-review-non-login
+      | Submit
+
+script
+  |  $('#user_stars').raty({ hints: ['bad', 'poor', 'regular', 'good', 'gorgeous'],
+  | path: 'https://raw.githubusercontent.com/wbotelhos/raty/master/lib/images/',
+  | scoreName: 'review[star]', score: 1, targetType: 'score'
+  | }); 

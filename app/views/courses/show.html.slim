@@ -1,0 +1,346 @@
+= javascript_include_tag "course/review.js"
+= javascript_include_tag "course/destroy.js"
+section.page-banner-section
+  .container
+    h1
+      | Distance Learning MBA Management
+    ul.page-depth
+      li
+        a[href="index.html"]
+          | Studiare
+      li
+        a[href="courses.html"]
+          | Courses
+      li
+        a[href="single-course.html"]
+          = @course.category.title
+| <section class="single-course-section" course_id=
+= @course.id
+| > 
+.container
+  / | <div class="container" onload="renderReviews(
+  / = @course.id
+  / | )">
+  .row
+    .col-lg-8
+      .single-course-box
+        .product-single-top-part
+          .product-info-before-gallery
+            .course-author.before-gallery-unit
+              .icon
+                i.material-icons
+                  | account_box
+              .info
+                span.label
+                  | Teacher
+                .value
+                  a[href="single-teacher.html"]
+                    = @course.user.first_name
+                    '
+                    = @course.user.last_name
+            .course-category.before-gallery-unit
+              .icon
+                i.material-icons
+                  | bookmark_border
+              .info
+                span.label
+                  | Category
+                .value
+                  a[href="#"]
+                    - if @course.category.parent_category.present?
+                      = @course.category.parent_category.title
+                      span
+                        | /
+                  a[href="#"]
+                    = @course.category.title
+            .course-rating.before-gallery-unit
+              .star-rating.has-ratings
+                span.rating
+                  = @course.rateAvg
+                span.votes-number
+                  = @course.countRate
+                  |  Votes
+            .course-delete.before-gallery-unit
+              - if(user_signed_in? && @course.user == current_user)
+                .edit-course
+                  = link_to "Edit", edit_course_path(@course)
+                button.delete-course[title="Delete Course"]
+                  | Delete
+          .course-single-gallery
+            = image_tag(@course.course_photos[0].course_images_url) if @course.course_photos.present?
+        .single-course-content
+          h2
+            | What Will I Learn?
+          p
+            = @course.desc
+          h2
+            | Learning Objectives
+          .row
+            .col-md-12
+              ul.list
+                - @course.descDetail.each do |desc|
+                  li
+                    = desc
+          h2
+            | Prior Knowledge
+          p
+            = @course.priorKnowledge
+          .course-section
+            h3
+              | 1. Introduction
+            .panel-group
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-play-circle-o
+                  .title
+                    h4
+                      | 1.1 Introduction 
+                      span.badge-item.video
+                        | video
+                    p.subtitle
+                      | 01:10
+                .panel-heading-right
+                  a.video-lesson-preview.preview-button[href="https://www.youtube.com/watch?v=4BJY-bgHqtI"]
+                    i.fa.fa-play-circle
+                    | Preview 
+              .panel-content
+                .panel-content-inner
+                  |  Welcome to How to Customize a Logo Sting! In this course you’ll learn how to take a basic After Effects sting logo treatment and customise it to work for your brand. Are you new to After Effects? No worries! This course is designed for people who are new to After Effects or have never used it! 
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-files-o
+                  .title
+                    h4
+                      | Project Files
+                      span.badge-item.practice
+                        | practice
+                    p.subtitle
+                      | Accessing the project files
+                .panel-heading-right
+                  .private-lesson
+                    i.fa.fa-lock
+                    span
+                      | Private
+              .panel-content
+                .panel-content-inner
+                  |  This lesson is private, for full access to all lessons you need to buy this course. 
+          .course-section
+            h3
+              | 2. Getting Started
+            .panel-group
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-play-circle-o
+                  .title
+                    h4
+                      | 2.1 After Effects Tour 
+                      span.badge-item.free
+                        | free
+                    p.subtitle
+                      | Quick tour of the After Effects interface
+              .panel-content
+                .panel-content-inner
+                  |  In this lesson you are going to open up the project, get a quick tour of the After Effects interface, and learn how the project is organized. After Effects is a massive application, but this lesson is only going to focus on what you need to know to work with this logo sting project!
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-play-circle-o
+                  .title
+                    h4
+                      | 2.2 Layers, Comps, and Precomps
+                    p.subtitle
+                      | 08:57
+                .panel-heading-right
+                  .private-lesson
+                    i.fa.fa-lock
+                    span
+                      | Private
+              .panel-content
+                .panel-content-inner
+                  |  This lesson is private, for full access to all lessons you need to buy this course.
+          .course-section
+            h3
+              | 3. Customize!
+            .panel-group
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-download
+                  .title
+                    h4
+                      | 3.1 Logo Replacement 
+                      span.badge-item.lecture
+                        | lecture
+                    p.subtitle
+                      | 14:40
+                .panel-heading-right
+                  .private-lesson
+                    i.fa.fa-lock
+                    span
+                      | Private
+              .panel-content
+                .panel-content-inner
+                  |  This lesson is private, for full access to all lessons you need to buy this course.
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-play-circle-o
+                  .title
+                    h4
+                      | 3.2 Color Tweaks
+                    p.subtitle
+                      | 03:54
+                .panel-heading-right
+                  a.video-lesson-preview.preview-button[href="https://www.youtube.com/watch?v=4BJY-bgHqtI"]
+                    i.fa.fa-play-circle
+                    | Preview 
+                  .private-lesson
+                    i.fa.fa-lock
+                    span
+                      | Private
+              .panel-content
+                .panel-content-inner
+                  |  This lesson is private, for full access to all lessons you need to buy this course.
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-play-circle-o
+                  .title
+                    h4
+                      | 3.3 Adding Music 
+                      span.badge-item.video
+                        | video
+                    p.subtitle
+                      | 09:13
+                .panel-heading-right
+                  .private-lesson
+                    i.fa.fa-lock
+                    span
+                      | Private
+              .panel-content
+                .panel-content-inner
+                  |  This lesson is private, for full access to all lessons you need to buy this course.
+          .course-section
+            h3
+              | 4. Wrapping Up
+            .panel-group
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-question-circle
+                  .title
+                    h4
+                      | 4.1 Export & Practice 
+                      span.badge-item.quiz
+                        | quiz
+                    p.subtitle
+                      | Course quiz
+              .panel-content
+                .panel-content-inner
+                  |  Now you have your logo sting modified with your logo and a short musical sting, you need to get it out of After Effects so you can use it in other projects. In this lesson you’ll learn how to setup a render and export your video!
+              .course-panel-heading
+                .panel-heading-left
+                  .course-lesson-icon
+                    i.fa.fa-trophy
+                  .title
+                    h4
+                      | 4.2 Conclusion
+                    p.subtitle
+                      | 03:17
+              .panel-content
+                .panel-content-inner
+                  |  Congratulations on customizing this logo sting and exporting it out of After Effects! In this last lesson I will share some tips and ideas for even more customization!
+        .course-reviews
+          .course-review-title
+            h3
+              i.material-icons
+                | chat_bubble_outline
+              |  Student Reviews 
+          | <span class="course-reviews-inner" course_id="
+          = @course.id
+          | ">
+          = render "reviews/form"
+          = render "reviews/list"            
+            
+    .col-lg-4
+      .sidebar
+        .widget.course-widget
+          p.price
+            span.price-label
+              | Price
+            span.amount
+              del
+                | $
+                = @course.price
+              |  $
+              = @course.discount
+              a.button-one[href="#"]
+                | Take this course
+              .product-meta-info-list
+                h3
+                  | Course Features
+                .meta-info-unit
+                  .icon
+                    i.material-icons
+                      | language
+                  .value
+                    | Language: English
+                .meta-info-unit
+                  .icon
+                    i.material-icons
+                      | access_time
+                  .value
+                    | 7 hours on-demand video
+                .meta-info-unit
+                  .icon
+                    i.material-icons
+                      | playlist_add_check
+                  .value
+                    | 11 Lessons
+                .meta-info-unit
+                  .icon
+                    i.material-icons
+                      | spellcheck
+                  .value
+                    | Study Level: Intermediate
+                .meta-info-unit
+                  .icon
+                    i.material-icons
+                      | terrain
+                  .value
+                    | Certificate of Completion
+              ul.share-list
+                li
+                  span
+                    | Share:
+                li
+                  a.facebook[href="#"]
+                    i.fa.fa-facebook-f
+                li
+                  a.twitter[href="#"]
+                    i.fa.fa-twitter
+                li
+                  a.google[href="#"]
+                    i.fa.fa-google-plus
+                li
+                  a.linkedin[href="#"]
+                    i.fa.fa-linkedin
+              .widget.profile-widget
+                .top-part
+                  = image_tag("teachers/teacher4-thumb.jpg")
+                  .name
+                    h3
+                      | Leslie Williams
+                    span.job-title
+                      | Math
+                .content
+                  p
+                    | Donec tortor massa, dapibus sit amet massa ut, tincidunt dapibus neque. Morbi ac mauris lorem.
+                  a.text-link[href="single-teacher.html"]
+                    | View full profile
+
+script
+  |  $('#rating_course').raty({ readOnly: true, path: 'https://raw.githubusercontent.com/wbotelhos/raty/master/lib/images/', size: 1 }); 

@@ -1,0 +1,343 @@
+header.clearfix
+  .top-line
+    .container
+      .row
+        .col-lg-6
+          p
+            i.material-icons
+              | phone
+            span
+              | +01 2334 853
+          p
+            i.material-icons
+              | email
+            span
+              | email@mycourse.com
+        .col-lg-6
+          .right-top-line
+            ul.top-menu
+              li
+                a[href="#"]
+                  | Purchase Now
+              li
+                a[href="about"]
+                  | About
+              li
+                a[href="blog"]
+                  | News
+            button.search-icon
+              i.material-icons.open-search
+                | search
+              i.material-icons.close-search
+                | close
+            button.shop-icon
+              i.material-icons
+                | shopping_cart
+              span.studiare-cart-number
+                | 0
+  form.search_bar
+    .container
+      input.search-input[type="search" placeholder="What are you looking for..."]
+      button.submit[type="submit"]
+        i.material-icons
+          | search
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container
+      a.navbar-brand[href="/"]
+        = image_tag "logo.svg"
+      a.mobile-nav-toggle[href="#"]
+        span
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.drop-link
+            a.active[href="/"]
+              | Home
+          li.drop-link
+            a[href="about"]
+              | Pages 
+              i.fa.fa-angle-down
+            ul.dropdown
+              li
+                a[href="about"]
+                  | About Us
+              li
+                a[href="pricing"]
+                  | Pricing Packages
+              li
+                a[href="portfolio"]
+                  | Portfolio
+              li
+                a[href="single-project"]
+                  | Portfolio Single
+              li
+                a[href="teachers"]
+                  | Teachers
+              li
+                a[href="single-teacher"]
+                  | Teacher Single
+              li.drop-link
+                a[href="#"]
+                  | Submenu Level 1
+                ul.dropdown.level2
+                  li
+                    a[href="#"]
+                      | Submenu Level 2
+                  li.drop-link
+                    a[href="#"]
+                      | Submenu Level 2
+                    ul.dropdown.level2
+                      li
+                        a[href="#"]
+                          | Submenu Level 3
+                      li
+                        a[href="#"]
+                          | Submenu Level 3
+                  li
+                    a[href="#"]
+                      | Submenu Level 2
+              li
+                a[href="cart"]
+                  | Shopping Cart
+              li
+                a[href="checkout"]
+                  | Checkout
+          li.drop-link
+            a[href="/category"]
+              | Categories 
+              i.fa.fa-angle-down
+            ul.dropdown
+              - @home_categories.each do |category|
+                - if category.category_id.nil?
+                  - if category.child_categories.present?
+                    li.drop-link
+                      ul.dropdown.level2
+                        - category.child_categories.each do |cat|
+                          li
+                            | <a href="/
+                            =I18n.locale
+                            | /
+                            = cat.slug
+                            | ">
+                            = cat.title
+                      | <a href="/
+                      =I18n.locale
+                      | /
+                      = category.slug
+                      | ">
+                      = category.title
+                  - else 
+                    li
+                      a[href="#"]
+                        = category.title
+          li.drop-link
+            a[href="blog"]
+              | Blog 
+              i.fa.fa-angle-down
+            ul.dropdown
+              li.drop-link
+                a[href="blog-list"]
+                  | Blog List
+                ul.dropdown.level2
+                  li
+                    a[href="blog-list-leftsidebar"]
+                      | Blog List - Sidebar Left
+                  li
+                    a[href="blog-list-rightsidebar"]
+                      | Blog List - Sidebar Right
+                  li
+                    a[href="blog-list"]
+                      | No Sidebar
+              li.drop-link
+                a[href="blog-grid-3"]
+                  | Blog Grid
+                ul.dropdown.level2
+                  li
+                    a[href="blog-grid-3"]
+                      | 3 Column
+                  li
+                    a[href="blog-grid-4"]
+                      | 4 Column
+                  li
+                    a[href="blog-grid-leftsidebar"]
+                      | Sidebar Left
+                  li
+                    a[href="blog-grid-rightsidebar"]
+                      | Sidebar Right
+              li
+                a[href="blog"]
+                  | Blog Classic
+              li
+                a[href="single-post"]
+                  | Post Single
+          li.drop-link
+            a[href="/courses"]
+              | Courses
+          li
+            a[href="events"]
+              | Events
+          li
+            a[href="contacts"]
+              | Contact
+        - if current_user
+          a.infor-account[onclick="settingMenuToggle()"]
+            = current_user.first_name
+            '
+            = current_user.last_name
+            = image_tag current_user.profile_photo_url, class: "image_avatar" 
+          .settings-menu
+            .settings-menu-inner
+              - if current_user[:is_admin]
+                .settings-links
+                  = image_tag("setting.png",class: "settings-icon")
+                  = link_to "Admin", "/admin"
+                  = image_tag("arrow.png",width: "10px")
+              - if current_user[:is_author]
+                .settings-links
+                  = image_tag("setting.png",class: "settings-icon")
+                  = link_to "Create course", new_course_path
+                  = image_tag("arrow.png",width: "10px")
+                .settings-links
+                  = image_tag("setting.png",class: "settings-icon")
+                  = link_to "My course", my_courses_path
+                  = image_tag("arrow.png",width: "10px")
+              .settings-links
+                = image_tag("setting.png",class: "settings-icon")
+                = link_to t('header.help'), edit_user_registration_path
+                = image_tag("arrow.png",width: "10px")
+              .settings-links
+                = image_tag("profile-home.png",class: "settings-icon")
+                = link_to t('user.user'), "/"
+                = image_tag("arrow.png",width: "10px")
+              .settings-links
+                = image_tag("logout.png",class: "settings-icon")
+                = button_to "Sign out", destroy_user_session_path, method: :delete
+        - else 
+          a.register-modal-opener.login-button[href="/users/sign_in"]
+            i.material-icons
+              | perm_identity
+            |  Login
+          a.register-modal-opener.register-button[href="/users/sign_up"]
+            i.material-icons
+              | perm_identity
+            |  Register
+  .mobile-menu
+    .search-form-box
+      form.search-form
+        input.search-field[type="search" placeholder="Enter keyword..."]
+        button.search-submit[type="submit"]
+          i.material-icons.open-search
+            | search
+    .shopping-cart-box
+      a.shop-icon[href="cart"]
+        i.material-icons
+          | shopping_cart
+        |  Cart 
+        span.studiare-cart-number
+          | 0
+    nav.mobile-nav
+      ul.mobile-menu-list
+        li
+          a[href="/"]
+            | Home
+        li.drop-link
+          a[href="#"]
+            | Pages
+          ul.drop-level
+            li
+              a[href="about"]
+                | About Us
+            li
+              a[href="pricing"]
+                | Pricing Packages
+            li
+              a[href="portfolio"]
+                | Portfolio
+            li
+              a[href="single-project"]
+                | Portfolio Single
+            li
+              a[href="teachers"]
+                | Teachers
+            li
+              a[href="single-teacher"]
+                | Teacher Single
+            li
+              a[href="cart"]
+                | Shopping Cart
+            li
+              a[href="checkout"]
+                | Checkout
+            li
+              a[href="single-teacher"]
+                | Teacher Single
+            li.drop-link
+              a[href="#"]
+                | Submenu Level 1
+              ul.drop-level
+                li
+                  a[href="#"]
+                    | Submenu Level 2
+                li.drop-link
+                  a[href="#"]
+                    | Submenu Level 2
+                  ul.drop-level
+                    li
+                      a[href="#"]
+                        | Submenu Level 3
+                    li
+                      a[href="#"]
+                        | Submenu Level 3
+                li
+                  a[href="#"]
+                    | Submenu Level 2
+        li.drop-link
+          a[href="blog"]
+            | Blog
+          ul.drop-level
+            li.drop-link
+              a[href="blog-list"]
+                | Blog List
+              ul.drop-level
+                li
+                  a[href="blog-list-leftsidebar"]
+                    | Blog List - Sidebar Left
+                li
+                  a[href="blog-list-rightsidebar"]
+                    | Blog List - Sidebar Right
+                li
+                  a[href="blog-list"]
+                    | No Sidebar
+            li.drop-link
+              a[href="blog-grid-3"]
+                | Blog Grid
+              ul.drop-level
+                li
+                  a[href="blog-grid-3"]
+                    | 3 Column
+                li
+                  a[href="blog-grid-4"]
+                    | 4 Column
+                li
+                  a[href="blog-grid-leftsidebar"]
+                    | Sidebar Left
+                li
+                  a[href="blog-grid-rightsidebar"]
+                    | Sidebar Right
+            li
+              a[href="blog"]
+                | Blog Classic
+            li
+              a[href="single-post"]
+                | Post Single
+        li
+          a[href="courses"]
+            | Courses
+        li
+          a[href="events"]
+            | Events
+        li
+          a[href="contact"]
+            | Contact
+
+script
+  |  var settingsmenu = document.querySelector(".settings-menu"); function settingMenuToggle() { settingsmenu.classList.toggle("settings-menu-height"); } 

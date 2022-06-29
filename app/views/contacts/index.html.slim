@@ -1,0 +1,59 @@
+section.contact-section
+  .container
+    .contact-box
+      h1
+        | Get in Touch
+      p
+        | Someone finds it difficult to understand your creative idea? There is a better visualisation. Share your views with us, we’re looking forward to hear from you.
+      form#contact-form
+        .row
+          .col-md-6
+            label[for="name"]
+              | Your Name (required)
+            input#name[name="name" type="text"]
+          .col-md-6
+            label[for="mail"]
+              | Your Email (required)
+            input#mail[name="mail" type="text"]
+        label[for="tel-number"]
+          | Your Phone Number
+        input#tel-number[name="tel-number" type="text"]
+        label[for="comment"]
+          | Your Message (required)
+        textarea#comment[name="comment"]
+        button#submit_contact[type="submit"]
+          | Submit Message
+        #msg.message
+section.contact-info-section
+  .container
+    .contact-info-box
+      .row
+        .col-lg-4.col-md-6
+          .info-post
+            .icon
+              i.fa.fa-envelope-o
+            .info-content
+              p
+                |  Tel: +1 (420) 899 4400 
+                br
+                |  E-Mail: 
+                a[href="#"]
+                  | hello@codebean.co
+        .col-lg-4.col-md-6
+          .info-post
+            .icon
+              i.fa.fa-map-marker
+            .info-content
+              p
+                |  6100 Wilshire Blvd 2nd Floor Los 
+                br
+                |  Angeles CA 
+        .col-lg-4.col-md-6
+          .info-post
+            .icon
+              i.fa.fa-clock-o
+            .info-content
+              p
+                |  Our office is open:
+                br
+                |  Mon to Fri from 8am to 6pm 

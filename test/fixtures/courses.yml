@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  subTitle: MyString
+  desc: MyString
+  descDetail: 
+  price: 1.5
+  discount: 1.5
+  rateAvg: 1.5
+  countRate: 1
+
+two:
+  title: MyString
+  subTitle: MyString
+  desc: MyString
+  descDetail: 
+  price: 1.5
+  discount: 1.5
+  rateAvg: 1.5
+  countRate: 1
