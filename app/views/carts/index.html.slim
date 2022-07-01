@@ -1,0 +1,180 @@
+= javascript_include_tag "course/cart.js"
+= javascript_include_tag "course/order.js"
+.card#list_carts
+.card.list_carts
+  .row
+    .col-md-8.cart
+      .title
+        .row
+          .col
+            h4
+              b
+                | Shopping Cart
+          .col.align-self-center.text-right.text-muted
+            = @data_cart[:count]
+      .row.border-top.border-bottom
+        - if @data_cart[:list_cart_item]
+          - @data_cart[:list_cart_item].each do |cart_item|
+            .row.main.align-items-center
+              .col-2
+                | <img src="
+                = cart_item.course_image_url
+                | " style=" width: 100%; ">
+              .col.title
+                .row.text-muted
+                  = cart_item.course_title
+                .row.text-description
+                  = cart_item.course_description
+              .col.price
+                  | $
+                  '
+                  = cart_item.course_price
+                  '
+                  | <span class="delete_cart_item" cart_item_id="
+                  = cart_item.id
+                  | ">✕
+
+      .back-to-shop
+        a[href="#"]
+          | ?
+        span.text-muted
+          | Back to shop
+    .col-md-4.summary
+      div
+        h5
+          b
+            | Summary
+      hr
+      .row
+        .col[style="padding-left:0;"]
+          | ITEMS
+          '
+          = @data_cart[:count]
+        .col.text-right
+          | $
+          '
+          = @data_cart[:cart].total_price if @data_cart[:cart].present?
+      form
+        p
+          | SHIPPING
+        select
+          option.text-muted
+            | Standard-Delivery- $ 1.00
+        p
+          | GIVE CODE
+        input#code[placeholder="Enter your code"]
+      .row[style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;"]
+        .col
+          | TOTAL PRICE
+        .col.text-right
+          | $
+          = @data_cart[:cart].total_price + 1 if @data_cart[:cart].present?
+      - if @data_cart[:cart].present?
+        | <button class="add_order" cart_id=
+        = @data_cart[:cart].id
+        | >CHECKOUT
+
+script#template_carts[type="text/template"]
+  .row
+    <% if(cart.cart_items.length > 0) { %>
+    .col-md-8.cart
+      .title
+        .row
+          .col
+            h4
+              b
+                | Shopping Cart
+          .col.align-self-center.text-right.text-muted
+            <%= cart.cart_items.length %>
+      .row.border-top.border-bottom
+        <% _.each(cart.cart_items, function(cart_item) {%>
+          .row.main.align-items-center
+            .col-2
+              .image
+                <img src="<%= cart_item.course_image_url %>" style=" width: 100%; " alt="" />
+            .col.title
+              .row.text-muted
+                <%= cart_item.course_title %>
+              .row.text-description
+                <%= cart_item.course_description %>
+            .col.price
+                | $
+                '
+                <%= cart_item.course_price %>
+                '
+                <span class="delete_cart_item" cart_item_id="<%- cart_item._id['$oid'] %>">✕
+        <%});%>
+
+      .back-to-shop
+        a[href="#"]
+          | ?
+        span.text-muted
+          | Back to shop
+    .col-md-4.summary
+      div
+        h5
+          b
+            | Summary
+      hr
+      .row
+        .col[style="padding-left:0;"]
+          | ITEMS
+          '
+          <%= cart.total %>
+        .col.text-right
+          | $
+          '
+          <%= cart.total_price %>
+      form
+        p
+          | SHIPPING
+        select
+          option.text-muted
+            | Standard-Delivery- $ 1.00
+        p
+          | GIVE CODE
+        input#code[placeholder="Enter your code"]
+      .row[style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;"]
+        .col
+          | TOTAL PRICE
+        .col.text-right
+          | $
+          <%= cart.total_price + 1 %>
+      <button class="add_order" cart_id="<%- cart.id['$oid'] %>">CHECKOUT
+  <% }else { %>
+    .row
+      .col-md-8.image_empty_cart
+        = image_tag "empty_course.jpeg"
+
+        .back-to-shop
+          a[href="#"]
+            | ?
+          span.text-muted
+            | Back to shop
+      .col-md-4.summary
+        div
+          h5
+            b
+              | Summary
+        hr
+        .row
+          .col[style="padding-left:0;"]
+            | ITEMS
+            '
+            | 0
+        div
+          p
+            | SHIPPING
+          select
+            option.text-muted
+              | Standard-Delivery- $ 1.00
+          p
+            | GIVE CODE
+          input#code[placeholder="Enter your code"]
+        .row[style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;"]
+          .col
+            | TOTAL PRICE
+        button.btn
+          | CHECKOUT
+              
+  <% } %>

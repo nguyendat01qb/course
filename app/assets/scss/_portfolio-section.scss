@@ -17,11 +17,13 @@ section.portfolio-section {
 			@include border-radius(4px);
 			border: 1px solid #e5e5e5;
 			overflow: hidden;
+			position: relative;
 			.image-holder {
-				position: relative;
+				position: absolute;
+				top: 0;
 				img {
-					width: 100%;
-					height: auto;
+					position: absolute;
+					top: 0;
 				}
 				a {
 					position: absolute;

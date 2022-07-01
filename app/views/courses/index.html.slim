@@ -1,3 +1,6 @@
+= javascript_include_tag "course/search.js"
+= javascript_include_tag "category/list_courses.js"
+= javascript_include_tag "course/cart.js"
 section.page-banner-section
   .container
     h1
@@ -17,18 +20,22 @@ section.courses-section
           .courses-view
             span
               | Showing all 
-              = @courses.count
+              = @courses_data[:count]
               |  results
-          form.search-course
-            input#search_course[type="search" name="search" placeholder="Search Courses..."]
-            button[type="submit"]
-              i.material-icons
-                | search
-        .row
-          - @courses.each do |course|
+          div.search-course
+            input#search_course[placeholder="Search Courses..."]
+        #list_courses.row
+        .row.list_course
+          - @courses_data[:courses].each do |course|
             .col-lg-4.col-md-6.col-sm-6
               .course-post
                 .course-thumbnail-holder
+                  .course-icon
+                    | <button class="add_to_cart" course_id="
+                    = course.id
+                    | ">
+                    i.material-icons
+                      | shopping_cart
                   | <span class="course-thumbnail" course_id="
                   = course.id
                   | ">
@@ -76,21 +83,11 @@ section.courses-section
             h2
               | Product categories
             ul.category-list
-              li
-                a[href="#"]
-                  | Design
-              li
-                a[href="#"]
-                  | Photography
-              li
-                a[href="#"]
-                  | Technology
-              li
-                a[href="#"]
-                  | Web Design
-              li
-                a[href="#"]
-                  | Web Development
+              - @courses_data[:list_categories].each do |category|
+                | <li class="category_type" category_id="
+                = category[:key]
+                | ">
+                = category[:value]
           .products-widget.widget
             h2
               | Products
@@ -134,3 +131,51 @@ section.courses-section
           .ads-widget.widget
             a[href="#"]
               = image_tag("blog/ad-banner.jpg")
+
+script#template_course[type="text/template"]
+  <% if(courses) { %>
+    <% _.each(courses, function(course) {%>
+      .col-lg-4.col-md-6.col-sm-6
+        .course-post
+          .course-thumbnail-holder
+            .course-icon
+              <button class="add_to_cart" course_id="<%= course._id['$oid'] %>">
+                i.material-icons
+                  | shopping_cart
+            <a href="/courses/<%- course._id['$oid'] %>">
+              <% if (course.course_photos.length != 0) { %>
+                / <%- image_tag(course.course_photos[0].course_images.url) %>
+                <img src="<%= course.course_photos[0].course_images.url%>" alt="" />
+              <% } %>
+          .course-content-holder
+            .course-content-main
+              h2.course-title
+                <a href="/courses/<%- course._id['$oid'] %>">
+                  <%= course.title %>
+              .course-rating-teacher
+                .star-rating.has-ratings[title="Rated 5.00 out of 5"]
+                  span[style="width:100%"]
+                    span.rating
+                      <%= course.rateAvg %>
+                    span.votes-number
+                      <%= course.countRate %>
+                a.course-loop-teacher[href="#"]
+                  <%= course.user.first_name %> <%= course.user.last_name %>
+            .course-content-bottom
+              .course-students
+                i.material-icons
+                  | group
+                span
+                  | 64
+              .course-price
+                span
+                  <%= course.price %>
+
+    <%});%>
+  <% }else { %>
+    .col-lg-4.col-md-6.col-sm-6
+      .course-post
+        .course-thumbnail-holder
+          / = image_tag "empty_course.jpeg"
+          / <img src="empty_course.jpeg" alt="" />
+  <% } %>

@@ -1,6 +1,58 @@
 
 ul.comments
   #list_reviews
+  .list_review 
+    - @course.reviews.each do |review|
+      - if review.review_id == nil 
+        .review
+          | <li review_id="
+          = review.id
+          | ">
+          .image-holder
+            = image_tag(review.user.profile_photo.url)
+          .comment-content
+            h2
+              = review.user.first_name 
+              '
+              = review.user.last_name 
+              '
+              = review.created_at
+              span.rating
+                | <div class="list_stars" class="review-rating" data-score=
+                = review.rate
+                |  data-score-name="value">
+            p
+              = review.comment
+            .comment_event
+              - if user_signed_in?
+                .reply_comment
+                  | Reply
+                .delete_comment
+                  | Delete
+            input.input_reply[type="text" placeholder="Enter your reply"]
+            - if review.child_reviews
+              ul
+                - review.child_reviews.each do |rev|
+                  | <li review_id="
+                  = rev.id
+                  | ">
+                  .image-holder
+                    = image_tag rev.user.profile_photo.url
+                  .comment-content
+                    h2.review_info
+                      = rev.user.first_name
+                      '
+                      = rev.user.last_name
+                      '
+                      = rev.created_at
+                    p 
+                      = rev.comment
+                    .comment_event
+                      - if user_signed_in?
+                        .delete_comment
+                          | Delete
+    script
+      | $('div .list_stars').raty({ readOnly: true, path: 'https://raw.githubusercontent.com/wbotelhos/raty/master/lib/images/', }); 
 
 script#template_review[type="text/template"]
   <% _.each(reviews, function(review) {%>
@@ -9,7 +61,7 @@ script#template_review[type="text/template"]
         .image-holder
           <a>
             <% if (review.user.profile_photo.url) { %>
-              <img src="<%= review.user.profile_photo.url%>" alt="" />
+              <img class="avatar" src="<%= review.user.profile_photo.url%>" alt="" />
             <% } %>
         .comment-content
           <h2 class="review_info">
@@ -22,32 +74,27 @@ script#template_review[type="text/template"]
             <%= review.comment %>
           .comment_event
             - if user_signed_in?
-              <span class="reply_comment">
+              .reply_comment
                 | Reply
-              <span class="delete_comment">
+              .delete_comment
                 | Delete
           <input class="input_reply" type="text" placeholder="Enter your reply" />
           <% if (review.child_reviews) { %>
-            <% _.each(review.child_reviews, function(review) { %>
-              <li review_id="<%- rev.id['$oid'] %>" >
+            <% _.each(review.child_reviews, function(rev) { %>
+              <li review_id="<%- rev._id['$oid'] %>" >
                 .image-holder
-                  <a>
-                    <% if (review.user.profile_photo.url) { %>
-                      <img src="<%= rev.user.profile_photo.url%>" alt="" />
-                    <% } %>
                 .comment-content
                   <h2 class="review_info">
-                    <%= rev.user.first_name %> <%= rev.user.last_name %>
-                    | -   
                     <%= rev.created_at %>
                   <p>
                     <%= rev.comment %>
                   .comment_event
                     - if user_signed_in?
-                      <span class="delete_comment">
+                      .delete_comment
                         | Delete
-            <% }) %>      
-          <% } %>
+            <% }) %>
+          <% } %>      
+    <% } %>
   <%});%>
   script
     |  $('.list_user_stars').raty({ readOnly: true, path: 'https://raw.githubusercontent.com/wbotelhos/raty/master/lib/images/', })

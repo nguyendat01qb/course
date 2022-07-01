@@ -7,19 +7,14 @@ class Course::Destroy < ServiceBase
 
   def execute!
     course_des = current_user.courses.find(course_id)
-    def destroy(course_des)
-      if course_des&.destroy
-        my_course = current_user.courses.all.to_a
-        [true, 'Deleted Couse Successfully', ActiveModelSerializers::SerializableResource.new(my_course,
-                                                                                                 each_serializer: course_serializer)]
-      else
-        [false, 'Course destroy failed']
-      end
-    end
-    if course_des
-      destroy(course_des)
+    return [false, 'You don\'t have permission to delete this course'] unless course_des
+
+    if course_des&.destroy
+      my_course = current_user.courses.all.to_a
+      [true, 'Deleted Couse Successfully', ActiveModelSerializers::SerializableResource.new(my_course,
+                                                                                            each_serializer: course_serializer)]
     else
-      [false, 'You don\'t have permission to delete this course']
+      [false, 'Course destroy failed']
     end
   end
 

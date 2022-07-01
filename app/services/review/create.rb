@@ -16,7 +16,7 @@ class Review::Create < ServiceBase
       course = Course.find(course_id)
       count_rate = course.reviews.count
       course.reviews.each do |rev|
-        next if rev.rate == 0
+        next if (rev.rate.nil? || rev.rate == 0)
         sum_rate += rev.rate
       end
       rateAvg = (sum_rate.to_f/count_rate.to_f).round(2)

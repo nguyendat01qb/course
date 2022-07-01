@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
+  resources :my_blogs
   scope '(:locale)', locale: /en|ja/ do
     get 'my_course/index'
     ActiveAdmin.routes(self)
     root 'static_pages#home'
+    get 'static_pages/home'
+    resources :categories, only: %i[index show]
+    resources :courses
+    resources :my_courses, only: [:index]
+    resources :carts, only: [:index]
+    resources :my_blogs
+
     namespace :api, defaults: { format: :json } do
       namespace :v1 do
         resources :courses, only: [:index] do
@@ -10,27 +18,24 @@ Rails.application.routes.draw do
             delete :destroy
           end
         end
-        resources :reviews, only: [:index, :create] do
+        resources :carts, only: %i[index create] do
+          collection do
+            delete :destroy
+          end
+        end
+        resources :orders, only: [:create]
+        resources :reviews, only: %i[index create] do
           collection do
             delete :destroy
           end
         end
       end
     end
-    resources :categories, only: [:index, :show] do
-      resources :courses, only: [:index, :create, :update, :destroy]
-    end
-    resources :events
-    resources :contacts
-    resources :courses
-    resources :my_courses, only: [:index]
-    resources :topics
-    get 'static_pages/home'
-    get 'static_pages/help'
-    get 'static_pages/users'
+    # resources :events
+    # resources :contacts
+    # resources :topics
 
-    get 'course/:slug', to: 'course_details#index'
     devise_for :users
-    match "/images/uploads/*path" => "gridfs#serve", via: [:get, :post]
+    match '/images/uploads/*path' => 'gridfs#serve', via: %i[get post]
   end
 end

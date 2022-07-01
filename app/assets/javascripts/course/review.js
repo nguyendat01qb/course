@@ -41,10 +41,10 @@ function Review(options) {
         },
         dataType: "json",
         success: function (res) {
-          console.log(res);
           $.notify.defaults({ globalPosition: "right" });
           if (res.code == 200) {
             review_text.val("");
+            $('.list_review').hide();
 
             var data = { reviews: res.data };
             var template = _.template($("#template_review").text());
@@ -58,33 +58,6 @@ function Review(options) {
         },
         error: function (e) {
           $.notify(e, "error");
-        },
-      });
-    });
-  };
-
-  module.handleLoad = function () {
-    $(".course-post").click(function () {
-      const course_id = $(this).find(".course-thumbnail").attr("course_id");
-      console.log(6352786);
-      $.ajax({
-        url: module.settings.api.review,
-        type: "GET",
-        headers: { api_token: module.settings.data.api_token },
-        data: { course_id: course_id },
-        dataType: "json",
-        success: function (res) {
-          if (res.code == 200) {
-            var data = { reviews: res.data };
-            var template = _.template($("#template_review").text());
-
-            $("#list_reviews").html(template(data));
-          } else {
-            console.log(res.message);
-          }
-        },
-        error: function (res) {
-          console.log(res);
         },
       });
     });
@@ -122,8 +95,10 @@ function Review(options) {
           },
           dataType: "json",
           success: function (res) {
+            $.notify.defaults({ globalPosition: "right" });
             if (res.code == 200) {
               comment.val("");
+              $(".list_review").hide();
 
               var data = { reviews: res.data };
               var template = _.template($("#template_review").text());
@@ -140,16 +115,47 @@ function Review(options) {
           },
         });
       }
-      // event.preventDefault();
-      // console.log($(this).attr("type"));
+    });
+  };
+
+  module.deleteReview = function () {
+    $(document).on("click", ".delete_comment", function (event) {
+      const review_id = $(this).closest("li").attr("review_id");
+      const course_id = $(this).closest("section").attr("course_id");
+
+      $.ajax({
+        url: module.settings.api.review,
+        headers: {
+          api_token: module.settings.data.api_token,
+        },
+        type: "DELETE",
+        data: { review_id: review_id, course_id: course_id },
+        dataType: "json",
+        success: function (res) {
+          $.notify.defaults({ globalPosition: "right" });
+          if (res.code == 200) {
+            $(".list_review").hide();
+            var data = { reviews: res.data };
+            var template = _.template($("#template_review").text());
+
+            $("#list_reviews").html(template(data));
+            $.notify(res.message, "success");
+          } else {
+            $.notify(res.message, "error");
+          }
+        },
+        error: function (e) {
+          $.notify(e, "error");
+        },
+      });
     });
   };
 
   module.init = function () {
     module.addReview();
-    module.handleLoad();
     module.showInput();
     module.reply();
+    module.deleteReview();
   };
 }
 

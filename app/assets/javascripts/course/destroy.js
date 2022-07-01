@@ -58,7 +58,6 @@ function Destroy(options) {
           return confirm("Are you sure?");
         },
         success: function (res) {
-          console.log(res);
           $.notify.defaults({globalPosition: 'right'});
           if (res.code == 200) {
             var data = { courses: res.data };

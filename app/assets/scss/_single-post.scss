@@ -168,7 +168,7 @@
     			float: left;
     			img {
     				width: 75px;
-    				height: auto;
+    				// height: auto;
     				@include border-radius(50%);
     			}
     		}

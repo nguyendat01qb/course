@@ -1,0 +1,119 @@
+section.page-banner-section
+  .container
+    h1
+      | News
+    ul.page-depth
+      li
+        a[href="index.html"]
+          | Studiare
+      li
+        a[href="blog.html"]
+          | News
+section.blog-section
+  .container
+    .row
+      .col-lg-8.col-md-7
+        .blog-box
+          - if @my_blogs
+            - @my_blogs.each do |blog|
+              .blog-post
+                a[href="single-post.html"]
+                  = image_tag  "blog/blog-image-1.jpg" 
+                .post-content
+                  a.category[href="#"]
+                    | Academics
+                  h2
+                    a[href="single-post.html"]
+                      | Couple Of Happy College Students Graduated
+                  .post-meta.date
+                    i.material-icons
+                      | access_time
+                    |  June 13, 2018 
+
+          ul.page-pagination
+            li
+              a[href="#"]
+                i.fa.fa-angle-left
+            li
+              a.active[href="#"]
+                | 1
+            li
+              a[href="#"]
+                | 2
+            li
+              a[href="#"]
+                i.fa.fa-angle-right
+      .col-lg-4.col-md-5
+        .sidebar
+          .search-widget.widget
+            form.search-form
+              input.search-field[type="search" placeholder="Enter keyword..."]
+              button.search-submit[type="submit"]
+                i.material-icons
+                  | search
+          .ads-widget.widget
+            a[href="#"]
+              = image_tag  "blog/ad-banner.jpg"
+          
+          .tags-widget.widget
+            = link_to "New My blog", new_my_blog_path
+
+          .tags-widget.widget
+            h2
+              | Tags
+            ul.tags-list
+              li
+                a[href="#"]
+                  | codebean
+              li
+                a[href="#"]
+                  | course
+              li
+                a[href="#"]
+                  | parents
+              li
+                a[href="#"]
+                  | schools
+              li
+                a[href="#"]
+                  | students
+              li
+                a[href="#"]
+                  | teacher
+              li
+                a[href="#"]
+                  | theme
+              li
+                a[href="#"]
+                  | wordpress
+
+
+/ h1 Listing my_blogs
+
+/ table
+/   thead
+/     tr
+/       th Title
+/       th Subtitle
+/       th Description
+/       th Blogquote
+/       th Descdetails
+/       th
+/       th
+/       th
+
+/   tbody
+/     - @my_blogs.each do |my_blog|
+/       tr
+/         td = my_blog.title
+/         td = my_blog.subTitle
+/         td = my_blog.description
+/         td = my_blog.blogquote
+/         td = my_blog.descDetails
+/         td = link_to "Show", my_blog
+/         td = link_to "Edit", edit_my_blog_path(my_blog)
+/         td = link_to "Destroy", my_blog, data: {confirm: "Are you sure?"}, method: :delete
+
+/ br
+
+/ = link_to "New My blog", new_my_blog_path

@@ -3,7 +3,18 @@ class CoursesController < ApplicationController
   before_action :set_category
 
   def index
-    @courses = Course.all.to_a
+    courses = Course.all.to_a
+    list_categories = []
+    Category.all.to_a.each do |category|
+      next if category.child_categories.present?
+      list_categories << {:key => category.id, :value => category.title }
+    end
+
+    @courses_data = {
+      courses: courses,
+      count: courses.count,
+      list_categories: list_categories
+    }
   end
 
   def show; end

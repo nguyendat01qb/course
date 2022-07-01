@@ -1,0 +1,25 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @my_blog.title
+
+p
+  strong Subtitle:
+  = @my_blog.subTitle
+
+p
+  strong Description:
+  = @my_blog.description
+
+p
+  strong Blogquote:
+  = @my_blog.blogquote
+
+p
+  strong Descdetails:
+  = @my_blog.descDetails
+
+=> link_to "Edit", edit_my_blog_path(@my_blog)
+'|
+=< link_to "Back", my_blogs_path

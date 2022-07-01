@@ -29,6 +29,9 @@ class Course
   belongs_to :category
   has_many :reviews, dependent: :destroy
 
+  scope :by_category, ->(category_id) { where(category_id: category_id) }
+  scope :by_title, ->(value) { where(:title => /.*#{value}.*/) }
+
   def des_list=(arg)
     self.descDetail = arg.split('.').map { |v| v.strip }
   end

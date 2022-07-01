@@ -36,6 +36,7 @@ ActiveAdmin.register User do
       row :images do
         image_tag user.profile_photo_url, size: '200x200'
       end
+      row :jti
     end
   end
 

@@ -31,10 +31,11 @@ header.clearfix
               i.material-icons.close-search
                 | close
             button.shop-icon
-              i.material-icons
-                | shopping_cart
-              span.studiare-cart-number
-                | 0
+              a[href="/carts"]
+                i.material-icons
+                  | shopping_cart
+                span.studiare-cart-number
+                  | 0
   form.search_bar
     .container
       input.search-input[type="search" placeholder="What are you looking for..."]
@@ -130,7 +131,7 @@ header.clearfix
                       a[href="#"]
                         = category.title
           li.drop-link
-            a[href="blog"]
+            a[href="/my_blogs"]
               | Blog 
               i.fa.fa-angle-down
             ul.dropdown
@@ -190,24 +191,24 @@ header.clearfix
                 .settings-links
                   = image_tag("setting.png",class: "settings-icon")
                   = link_to "Admin", "/admin"
-                  = image_tag("arrow.png",width: "10px")
+                  = image_tag("arrow.png", :style => "width: 10px")
               - if current_user[:is_author]
                 .settings-links
                   = image_tag("setting.png",class: "settings-icon")
                   = link_to "Create course", new_course_path
-                  = image_tag("arrow.png",width: "10px")
-                .settings-links
-                  = image_tag("setting.png",class: "settings-icon")
-                  = link_to "My course", my_courses_path
-                  = image_tag("arrow.png",width: "10px")
+                  = image_tag("arrow.png", :style => "width: 10px")
+              .settings-links
+                = image_tag("setting.png",class: "settings-icon")
+                = link_to "My course", my_courses_path
+                = image_tag("arrow.png", :style => "width: 10px")
               .settings-links
                 = image_tag("setting.png",class: "settings-icon")
                 = link_to t('header.help'), edit_user_registration_path
-                = image_tag("arrow.png",width: "10px")
+                = image_tag("arrow.png", :style => "width: 10px")
               .settings-links
                 = image_tag("profile-home.png",class: "settings-icon")
                 = link_to t('user.user'), "/"
-                = image_tag("arrow.png",width: "10px")
+                = image_tag("arrow.png", :style => "width: 10px")
               .settings-links
                 = image_tag("logout.png",class: "settings-icon")
                 = button_to "Sign out", destroy_user_session_path, method: :delete
