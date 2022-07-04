@@ -40,10 +40,12 @@ class User
   field :unconfirmed_email,    type: String
 
   has_many :courses, dependent: :destroy
+  has_many :course_items, dependent: :destroy
   has_many :carts, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :my_blogs, dependent: :destroy
+  has_many :events, dependent: :destroy
   # has_many :events, dependent: :destroy
   # has_many :topics, dependent: :destroy
 

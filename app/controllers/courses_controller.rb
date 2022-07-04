@@ -35,6 +35,7 @@ class CoursesController < ApplicationController
         redirect_to course_url(course)
       else
         flash[:error] = 'Course creation failed'
+        render :new
       end
     end
     if current_user.is_author

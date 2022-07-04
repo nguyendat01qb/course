@@ -14,179 +14,45 @@ section.events-section.events-page
     .row
       .col-lg-8
         .events-box
-          .events-post
-            .event-inner-content
-              .top-part
-                .date-holder
-                  .date
-                    span.date-day
-                      | 22
-                    span.date-month
-                      | Oct
-                .content
-                  .event-meta
-                    span.event-meta-piece.start-time
-                      i.material-icons
-                        | access_time
-                      |  6:00 am - 12:00 pm 
-                    span.event-meta-piece.location
-                      i.material-icons
-                        | location_on
-                      |  New York , US of America 
-                  h2.title
-                    a[href="single-event.html"]
-                      | Summer High School Journalism Camp Registration Form
-                a.events-image[href="single-event.html"]
-                  = image_tag("events/events7.jpg")
-          .events-post
-            .event-inner-content
-              .top-part
-                .date-holder
-                  .date
-                    span.date-day
-                      | 14
-                    span.date-month
-                      | Dec
-                .content
-                  .event-meta
-                    span.event-meta-piece.start-time
-                      i.material-icons
-                        | access_time
-                      |  2:00 am - 5:00 am 
-                    span.event-meta-piece.location
-                      i.material-icons
-                        | location_on
-                      |  New York , US of America 
-                  h2.title
-                    a[href="single-event.html"]
-                      | Board of Regents Campus Live and Community Forum
-                a.events-image[href="single-event.html"]
-                  = image_tag("events/events6.jpg")
-          .events-post
-            .event-inner-content
-              .top-part
-                .date-holder
-                  .date
-                    span.date-day
-                      | 17
-                    span.date-month
-                      | Dec
-                .content
-                  .event-meta
-                    span.event-meta-piece.start-time
-                      i.material-icons
-                        | access_time
-                      |  2:00 am - 8:00 am 
-                    span.event-meta-piece.location
-                      i.material-icons
-                        | location_on
-                      |  New York , US of America 
-                  h2.title
-                    a[href="single-event.html"]
-                      | May Professional Development Diversity and Inclusion Series
-                a.events-image[href="single-event.html"]
-                  = image_tag("events/events5.jpg")
-          .events-post
-            .event-inner-content
-              .top-part
-                .date-holder
-                  .date
-                    span.date-day
-                      | 22
-                    span.date-month
-                      | Oct
-                .content
-                  .event-meta
-                    span.event-meta-piece.start-time
-                      i.material-icons
-                        | access_time
-                      |  6:00 am - 12:00 pm 
-                    span.event-meta-piece.location
-                      i.material-icons
-                        | location_on
-                      |  New York , US of America 
-                  h2.title
-                    a[href="single-event.html"]
-                      | Summer High School Journalism Camp Registration Form
-                a.events-image[href="single-event.html"]
-                  = image_tag("events/events4.jpg")
-          .events-post
-            .event-inner-content
-              .top-part
-                .date-holder
-                  .date
-                    span.date-day
-                      | 14
-                    span.date-month
-                      | Dec
-                .content
-                  .event-meta
-                    span.event-meta-piece.start-time
-                      i.material-icons
-                        | access_time
-                      |  2:00 am - 5:00 am 
-                    span.event-meta-piece.location
-                      i.material-icons
-                        | location_on
-                      |  New York , US of America 
-                  h2.title
-                    a[href="single-event.html"]
-                      | Board of Regents Campus Live and Community Forum
-                a.events-image[href="single-event.html"]
-                  = image_tag("events/events1.jpg")
-          .events-post
-            .event-inner-content
-              .top-part
-                .date-holder
-                  .date
-                    span.date-day
-                      | 17
-                    span.date-month
-                      | Dec
-                .content
-                  .event-meta
-                    span.event-meta-piece.start-time
-                      i.material-icons
-                        | access_time
-                      |  2:00 am - 8:00 am 
-                    span.event-meta-piece.location
-                      i.material-icons
-                        | location_on
-                      |  New York , US of America 
-                  h2.title
-                    a[href="single-event.html"]
-                      | May Professional Development Diversity and Inclusion Series
-                a.events-image[href="single-event.html"]
-                  = image_tag("events/events2.jpg")
-          .events-post
-            .event-inner-content
-              .top-part
-                .date-holder
-                  .date
-                    span.date-day
-                      | 22
-                    span.date-month
-                      | Oct
-                .content
-                  .event-meta
-                    span.event-meta-piece.start-time
-                      i.material-icons
-                        | access_time
-                      |  6:00 am - 12:00 pm 
-                    span.event-meta-piece.location
-                      i.material-icons
-                        | location_on
-                      |  New York , US of America 
-                  h2.title
-                    a[href="single-event.html"]
-                      | Summer High School Journalism Camp Registration Form
-                a.events-image[href="single-event.html"]
-                  = image_tag("events/events3.jpg")
+          - @events.each do |event|
+            .events-post
+              .event-inner-content
+                .top-part
+                  .date-holder
+                    .date
+                      span.date-day
+                        = event.start_time.day
+                      span.date-month
+                        = event.start_time.month
+                  .content
+                    .event-meta
+                      span.event-meta-piece.start-time
+                        i.material-icons
+                          | access_time
+                        = event.start_time.hour
+                        |  - 
+                        = event.end_time.hour
+                      span.event-meta-piece.location
+                        i.material-icons
+                          | location_on
+                        = event.address
+                    h2.title
+                      | <a href="/events/
+                      = event.id
+                      | ">
+                      = event.course.title
+                  | <a class="events-image" href="/events/
+                  = event.id
+                  | ">
+                  = image_tag event.course.course_photos[0].course_images_url 
+
       .col-lg-4
         .sidebar
           .ads-widget.widget
             a[href="#"]
               = image_tag("blog/ad-banner.jpg")
+          .widget 
+            = link_to "New Event", new_event_path
           .archives-widget.widget
             h2
               | Archives

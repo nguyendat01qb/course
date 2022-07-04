@@ -1,0 +1,115 @@
+= javascript_include_tag "course/destroy.js"
+section.page-banner-section
+  .container
+    h1
+      | Courses
+    ul.page-depth
+      li
+        a[href="index.html"]
+          | Home
+      li
+        a[href="courses.html"]
+          | Courses
+section.courses-section
+  .container
+    .row
+      .col-lg-8
+        .courses-top-bar
+          .courses-view
+            span
+              | Showing all 
+              = @my_courses_data[:count]
+              |  results
+          form.search-course
+            input#search_course[type="search" name="search" placeholder="Search Courses..."]
+            button[type="submit"]
+              i.material-icons
+                | search
+        #list_courses.row
+        .row.list_course
+          - if @my_courses_data[:list]
+            - @my_courses_data[:list].each do |course|
+              .col-lg-4.col-md-6.col-sm-6
+                .course-post
+                  .course-thumbnail-holder
+                    | <a href="/
+                    =I18n.locale
+                    | /courses/
+                    = course.id
+                    | ">
+                    = image_tag(course.course_image_url) if course.course_image_url
+                  .course-content-holder
+                    .course-content-main
+                      h2.course-title
+                        | <a href="/
+                        =I18n.locale
+                        | /courses/
+                        = course.id
+                        | ">
+                        = course.course_title
+                      .course-rating-teacher
+                        .star-rating.has-ratings[title="Rated 5.00 out of 5"]
+                          span[style="width:100%"]
+                            span.rating
+                              = course.rateAvg
+                            span.votes-number
+                              = course.countRate
+                        a.course-loop-teacher[href="#"]
+                          = course.author_firstname
+                          '
+                          = course.author_lastname
+                    .course-content-bottom
+                      .course-students
+                        i.material-icons
+                          | group
+                        span
+                          | 64
+                      .course-price
+                        span
+                          = course.course_price
+
+      .col-lg-4
+        .sidebar
+          .products-widget.widget
+            h2
+              | Products
+            ul.products-list
+              li
+                a[href="single-course.html"]
+                  = image_tag("courses/thumb1.jpg")
+                .list-content
+                  h3
+                    a[href="single-course.html"]
+                      | Introduction Web Design with HTML
+                  span
+                    | $244
+              li
+                a[href="single-course.html"]
+                  = image_tag("courses/thumb2.jpg")
+                .list-content
+                  h3
+                    a[href="single-course.html"]
+                      | Special Education Needs Teaching
+                  span
+                    | $74.99
+              li
+                a[href="single-course.html"]
+                  = image_tag("courses/thumb3.jpg")
+                .list-content
+                  h3
+                    a[href="single-course.html"]
+                      | Environmental Science BTEC Course
+                  span
+                    | $59.99
+              li
+                a[href="single-course.html"]
+                  = image_tag("courses/thumb4.jpg")
+                .list-content
+                  h3
+                    a[href="single-course.html"]
+                      | Distance Learning MBA Management
+                  span
+                    | $17.88
+          .ads-widget.widget
+            a[href="#"]
+              = image_tag("blog/ad-banner.jpg")

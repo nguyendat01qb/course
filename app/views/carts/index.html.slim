@@ -75,35 +75,34 @@
         | >CHECKOUT
 
 script#template_carts[type="text/template"]
-  .row
-    <% if(cart.cart_items.length > 0) { %>
-    .col-md-8.cart
-      .title
-        .row
-          .col
-            h4
-              b
-                | Shopping Cart
-          .col.align-self-center.text-right.text-muted
-            <%= cart.cart_items.length %>
-      .row.border-top.border-bottom
-        <% _.each(cart.cart_items, function(cart_item) {%>
-          .row.main.align-items-center
-            .col-2
-              .image
-                <img src="<%= cart_item.course_image_url %>" style=" width: 100%; " alt="" />
-            .col.title
-              .row.text-muted
-                <%= cart_item.course_title %>
-              .row.text-description
-                <%= cart_item.course_description %>
-            .col.price
-                | $
-                '
-                <%= cart_item.course_price %>
-                '
-                <span class="delete_cart_item" cart_item_id="<%- cart_item._id['$oid'] %>">✕
-        <%});%>
+  <% if(cart.length > 0) { %>
+  .col-md-8.cart
+    .title
+      .row
+        .col
+          h4
+            b
+              | Shopping Cart
+        .col.align-self-center.text-right.text-muted
+          <%= cart.cart_items.length %>
+    .row.border-top.border-bottom
+      <% _.each(cart.cart_items, function(cart_item) {%>
+        .row.main.align-items-center
+          .col-2
+            .image
+              <img src="<%= cart_item.course_image_url %>" style=" width: 100%; " alt="" />
+          .col.title
+            .row.text-muted
+              <%= cart_item.course_title %>
+            .row.text-description
+              <%= cart_item.course_description %>
+          .col.price
+              | $
+              '
+              <%= cart_item.course_price %>
+              '
+              <span class="delete_cart_item" cart_item_id="<%- cart_item._id['$oid'] %>">✕
+      <%});%>
 
       .back-to-shop
         a[href="#"]

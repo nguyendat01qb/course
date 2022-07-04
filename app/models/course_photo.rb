@@ -4,8 +4,7 @@ class CoursePhoto
   field :course_id, type: Integer
   field :my_blog_id, type: Integer
   
-  belongs_to :course
-  belongs_to :my_blog
+  belongs_to :list_image, polymorphic: true
   
   mount_uploader :course_images, CoursesUploader
 end

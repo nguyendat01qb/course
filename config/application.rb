@@ -37,6 +37,7 @@ module Blog
     # config.eager_load_paths << Rails.root.join("extras")
     config.autoload_paths << config.root.join('lib')
     config.autoload_paths << config.root.join('lib/concerns')
+    config.autoload_paths << config.root.join('lib/active_admin/inputs/filters')
     config.autoload_paths << config.root.join('app/serializers')
   end
 end

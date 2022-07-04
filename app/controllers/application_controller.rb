@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_category
-  before_action :count_courses
+  before_action :list_news
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def set_locale
@@ -20,14 +20,17 @@ class ApplicationController < ActionController::Base
     @home_categories = Category.all.to_a
   end
 
-  def count_courses
-    @count_courses = []
-    Category.all.to_a.each do |category|
-      next if category.child_categories.present?
-      # binding.pry
-      @count_courses << {:key => category.title, :value => category.courses.count }
-    end
-    @count_courses.sort_by{ |e| e[:value]}.reverse
+  def list_news
+    count_courses = []
+    list_course_new = Course.order("created_at desc").limit(4).to_a
+    # Category.all.to_a.each do |category|
+    #   next if category.child_categories.present?
+    #   @count_courses << {:key => category.title, :value => category.courses.count }
+    # end
+    # @count_courses.sort_by{ |e| e[:value]}.reverse
+    @list_news = {
+      list_course_new: list_course_new
+    }
   end
 
   protected

@@ -16,7 +16,6 @@ class MyBlogsController < InheritedResources::Base
   def create
     def my_blog(my_blog)
       if my_blog.save
-        binding.pry
         params[:course_photos]['course_images'].each do |a|
           @course_photos = my_blog.course_photos.create!(course_images: a)
         end

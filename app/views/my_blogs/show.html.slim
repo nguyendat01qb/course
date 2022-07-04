@@ -1,25 +1,264 @@
-p#notice = notice
-
-p
-  strong Title:
-  = @my_blog.title
-
-p
-  strong Subtitle:
-  = @my_blog.subTitle
-
-p
-  strong Description:
-  = @my_blog.description
-
-p
-  strong Blogquote:
-  = @my_blog.blogquote
-
-p
-  strong Descdetails:
-  = @my_blog.descDetails
-
-=> link_to "Edit", edit_my_blog_path(@my_blog)
-'|
-=< link_to "Back", my_blogs_path
+section.page-banner-section
+  .container
+    h1
+      | Academics
+    ul.page-depth
+      li
+        a[href="index.html"]
+          | Studiare
+      li
+        a[href="blog.html"]
+          | News
+      li
+        a[href="blog-grid-3.html"]
+          | Academics
+      li
+        a[href="single-post.html"]
+          = @my_blog.title
+section.blog-section
+  .container
+    .row
+      .col-lg-8.col-md-7
+        .blog-box
+          .blog-post.single-post
+            .post-content
+              h1
+                = @my_blog.title
+              .post-meta.date
+                i.material-icons
+                  | access_time
+                = @my_blog.created_at
+              .post-meta.user
+                i.material-icons
+                  | perm_identity
+                |  Posted by 
+                a[href="#"]
+                  = @my_blog.user.first_name
+                  '
+                  = @my_blog.user.last_name
+              .post-meta.category
+                i.material-icons
+                  | folder_open
+                a[href="#"]
+                  | Academics
+                | , 
+                a[href="#"]
+                  | School
+              .post-meta.before-gallery-unit
+                - if(user_signed_in? && @my_blog.user == current_user)
+                  button.edit-blog
+                    = link_to "Edit", edit_my_blog_path(@my_blog)
+                  button.delete_blog
+                    = link_to "Destroy", @my_blog, data: {confirm: "Are you sure?"}, method: :delete
+            a[href="single-post.html"]
+              = image_tag @my_blog.course_photos.first.course_images_url
+            .post-content
+              p
+                = @my_blog.description
+              h2
+                = @my_blog.subTitle
+              blockquote
+                = @my_blog.blogquote
+              ul.text-list
+                - @my_blog.descDetails.each do |des|
+                  li
+                    = des
+                    | .
+              p
+                span
+                  | Separation of container from content
+                |  means that objects should look the same no matter where you put them. In other words, avoid location-dependent styles. For example, if you’re styling an h2 like this…
+              .tags-share-box
+                ul.tags-list
+                  li
+                    span
+                      | Tags:
+                  li
+                    a[href="#"]
+                      | course
+                  li
+                    a[href="#"]
+                      | theme
+                  li
+                    a[href="#"]
+                      | HTML Template
+                ul.share-list
+                  li
+                    span
+                      | Share:
+                  li
+                    a.facebook[href="#"]
+                      i.fa.fa-facebook-f
+                  li
+                    a.twitter[href="#"]
+                      i.fa.fa-twitter
+                  li
+                    a.google[href="#"]
+                      i.fa.fa-google-plus
+                  li
+                    a.linkedin[href="#"]
+                      i.fa.fa-linkedin
+              .about-author
+                .image-holder
+                  img[src="upload/blog/avatar.jpg" alt=""]
+                .author-content
+                  h2
+                    | About codebean
+                  p
+                    | Aenean eu justo id magna luctus pulvinar. Quisque vitae scelerisque eros. Pellentesque pretium felis non libero pharetra feugiat id ac sem. Suspendisse ac metus justo.
+                  a.button-one[href="#"]
+                    | More posts by codebean
+          .post-nav
+            .post-nav-btn.prev-btn
+              a.post-nav-link.prev[href="#"]
+                i.material-icons
+                  | arrow_back
+                span
+                  | Newer
+                |  Reflections for the Season of Advent 
+            .post-nav-btn.next-btn
+              a.post-nav-link.next[href="#"]
+                i.material-icons
+                  | arrow_forward
+                span
+                  | Older
+                |  Couple Of Happy College Students Graduated 
+          .comments-holder
+            h2
+              | 4 Comments
+            p
+              | Join the discussion and tell us your opinion.
+            ul.comment-list
+              li
+                .image-holder
+                  img[src="upload/blog/avatar4.jpg" alt=""]
+                .comment-content
+                  h2
+                    |  Marcy Washington 
+                    span
+                      | June 14, 2018
+                    a[href="#"]
+                      i.fa.fa-commenting-o
+                      | Reply
+                  p
+                    | Learnt a lot about masks too. Thank you for sharing.
+                ul.depth-comment
+                  li
+                    .image-holder
+                      img[src="upload/blog/avatar2.jpg" alt=""]
+                    .comment-content
+                      h2
+                        |  Caleb Torres 
+                        span
+                          | June 14, 2018
+                        a[href="#"]
+                          i.fa.fa-commenting-o
+                          | Reply
+                      p
+                        | Nice result Caroline! Glad you enjoyed it
+                    ul.depth-comment
+                      li
+                        .image-holder
+                          img[src="upload/blog/avatar4.jpg" alt=""]
+                        .comment-content
+                          h2
+                            |  Marcy Washington 
+                            span
+                              | June 14, 2018
+                            a[href="#"]
+                              i.fa.fa-commenting-o
+                              | Reply
+                          p
+                            | This was great thank you Caleb
+              li
+                .image-holder
+                  img[src="upload/blog/avatar3.jpg" alt=""]
+                .comment-content
+                  h2
+                    |  Andrew 
+                    span
+                      | June 14, 2018
+                    a[href="#"]
+                      i.fa.fa-commenting-o
+                      | Reply
+                  p
+                    | Great article. I think that companies create their strongest user advocates when designers and developers understand the value of great user experience.
+          form.comment-form
+            h2
+              | Leave a Reply
+            p
+              | Logged in as besimdauti24. 
+              a[href="#"]
+                | Log out?
+            label
+              | Comment
+            textarea
+            button[type="submit"]
+              |  Post Comment 
+      .col-lg-4.col-md-5
+        .sidebar
+          .search-widget.widget
+            form.search-form
+              input.search-field[type="search" placeholder="Enter keyword..."]
+              button.search-submit[type="submit"]
+                i.material-icons
+                  | search
+          .ads-widget.widget
+            a[href="#"]
+              img[src="upload/blog/ad-banner.jpg" alt=""]
+          .category-widget.widget
+            h2
+              | Categories
+            ul.category-list
+              li
+                a[href="#"]
+                  | Academics
+              li
+                a[href="#"]
+                  | Advertisement
+              li
+                a[href="#"]
+                  | Business
+              li
+                a[href="#"]
+                  | Campus Life
+              li
+                a[href="#"]
+                  | Design
+              li
+                a[href="#"]
+                  | Government
+              li
+                a[href="#"]
+                  | Schools
+              li
+                a[href="#"]
+                  | Uncategorized
+          .tags-widget.widget
+            h2
+              | Tags
+            ul.tags-list
+              li
+                a[href="#"]
+                  | codebean
+              li
+                a[href="#"]
+                  | course
+              li
+                a[href="#"]
+                  | parents
+              li
+                a[href="#"]
+                  | schools
+              li
+                a[href="#"]
+                  | students
+              li
+                a[href="#"]
+                  | teacher
+              li
+                a[href="#"]
+                  | theme
+              li
+                a[href="#"]
+                  | wordpress

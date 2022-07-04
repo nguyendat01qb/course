@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         resources :courses, only: [:index] do
           collection do
             delete :destroy
+            post :course_item
           end
         end
         resources :carts, only: %i[index create] do
@@ -29,9 +30,19 @@ Rails.application.routes.draw do
             delete :destroy
           end
         end
+        resources :blogs, only: %i[index] do
+          collection do
+            delete :destroy
+          end
+        end
+        resources :events, only: %i[index] do
+          collection do
+            delete :destroy
+          end
+        end
       end
     end
-    # resources :events
+    resources :events
     # resources :contacts
     # resources :topics
 

@@ -26,4 +26,9 @@ class Api::V1::CoursesController < Api::V1::BaseController
 
     render json: success_message(message, serializer)
   end
+
+  def course_item
+    # title = params[:title]
+    binding.pry
+  end
 end

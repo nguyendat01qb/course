@@ -9,7 +9,7 @@ class MyBlog
   field :blogquote, type: String
   field :descDetails, type: Array, default: []
 
-  has_many :course_photos, dependent: :destroy
+  has_many :course_photos, as: :list_image, dependent: :destroy
   accepts_nested_attributes_for :course_photos, allow_destroy: true, reject_if: proc { |attributes|
                                                                                   attributes['course_photos'].blank?
                                                                                 }

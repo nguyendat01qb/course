@@ -1,5 +1,11 @@
-h1 New event
+.container
+  .row
+    .col-lg-10.col-xl-9.mx-auto
+      .card.flex-row.my-5.border-0.shadow.rounded-3.overflow-hidden
+        .card-body.p-4.p-sm-5
+          h5.card-title.text-center.mb-5.fw-light.fs-5.font-weight-bold
+            | New event
 
-== render "form"
+          = render "form"
 
-= link_to "Back", events_path
+          = link_to "Back", events_path

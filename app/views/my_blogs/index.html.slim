@@ -1,3 +1,4 @@
+= javascript_include_tag "blog/destroy.js"
 section.page-banner-section
   .container
     h1
@@ -13,22 +14,32 @@ section.blog-section
   .container
     .row
       .col-lg-8.col-md-7
+        #list_blogs
         .blog-box
           - if @my_blogs
             - @my_blogs.each do |blog|
               .blog-post
-                a[href="single-post.html"]
-                  = image_tag  "blog/blog-image-1.jpg" 
-                .post-content
-                  a.category[href="#"]
-                    | Academics
-                  h2
-                    a[href="single-post.html"]
-                      | Couple Of Happy College Students Graduated
-                  .post-meta.date
-                    i.material-icons
-                      | access_time
-                    |  June 13, 2018 
+                = link_to blog
+                  = image_tag  blog.course_photos.first.course_images_url
+                .post-content.post-content-detail
+                  .post-content-1
+                    a.category[href="#"]
+                      | Academics
+                    h2
+                      | <a href="/my_blogs/
+                      = blog.id
+                      | " blog_id="
+                      = blog.id
+                      | ">
+                      = blog.title
+                    .post-meta.date
+                      i.material-icons
+                        | access_time
+                      = blog.created_at
+                  - if(user_signed_in? && blog.user == current_user)
+                    .post-content-2
+                      button.delete_this_course
+                        | Delete
 
           ul.page-pagination
             li
@@ -88,32 +99,29 @@ section.blog-section
                   | wordpress
 
 
-/ h1 Listing my_blogs
-
-/ table
-/   thead
-/     tr
-/       th Title
-/       th Subtitle
-/       th Description
-/       th Blogquote
-/       th Descdetails
-/       th
-/       th
-/       th
-
-/   tbody
-/     - @my_blogs.each do |my_blog|
-/       tr
-/         td = my_blog.title
-/         td = my_blog.subTitle
-/         td = my_blog.description
-/         td = my_blog.blogquote
-/         td = my_blog.descDetails
-/         td = link_to "Show", my_blog
-/         td = link_to "Edit", edit_my_blog_path(my_blog)
-/         td = link_to "Destroy", my_blog, data: {confirm: "Are you sure?"}, method: :delete
-
-/ br
-
-/ = link_to "New My blog", new_my_blog_path
+script#template_blog[type="text/template"]
+  <% if(blogs.length > 0) { %>
+    <% _.each(blogs, function(blog) {%>
+      .blog-post
+        <a href="/my_blogs/<%- blog._id %>">
+          <% if (blog.course_photos.length != 0) { %>
+            <img src="<%= blog.course_photos[0].course_images.url %>" alt="" />
+          <% } %>
+        .post-content.post-content-detail
+          .post-content-1
+            <a class="category" href="#">
+              | Academics
+            h2
+              <a href="/my_blogs/<%- blog._id %>">
+                <%= blog.title %>
+            .post-meta.date
+              i.material-icons
+                | access_time
+              <%= blog.created_at %>
+          / <% if(user_signed_in? && blog.user == current_user) %>
+          .post-content-2
+            <button class="delete_this_course">Delete
+          / <% } %>
+    <% }) %>
+  <% }else{ %>
+  <% } %>

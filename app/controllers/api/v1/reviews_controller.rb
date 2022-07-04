@@ -14,13 +14,13 @@ class Api::V1::ReviewsController < Api::V1::BaseController
 
     if params[:rate]
       rate = params[:rate].to_i
-      check, message, serializer = Review::Create.new(rate, comment, course_id, '', current_user,
-                                                      ReviewSerializer).execute!
-    elsif params[:review_id]
+      review_id = ''
+    elsif
+      rate = 0
       review_id = params[:review_id]
-      check, message, serializer = Review::Create.new(0, comment, course_id, review_id,
-                                                      current_user, ReviewSerializer).execute!
     end
+    check, message, serializer = Review::Create.new(rate, comment, course_id, review_id,
+                                                    current_user, ReviewSerializer).execute!
 
     return render json: error_message(message) unless check
 

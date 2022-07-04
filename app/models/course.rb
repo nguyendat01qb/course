@@ -21,13 +21,15 @@ class Course
   # validates :price, :presence => true
   # validates :discount, :presence => true
 
-  has_many :course_photos, dependent: :destroy
+  has_many :course_photos, as: :list_image, dependent: :destroy
   accepts_nested_attributes_for :course_photos, allow_destroy: true, reject_if: proc { |attributes|
                                                                                   attributes['course_photos'].blank?
                                                                                 }
   belongs_to :user
   belongs_to :category
+  has_many :course_items, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   scope :by_category, ->(category_id) { where(category_id: category_id) }
   scope :by_title, ->(value) { where(:title => /.*#{value}.*/) }

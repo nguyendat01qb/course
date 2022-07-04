@@ -7,24 +7,25 @@
           li = message
 
   .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :description
-    = f.text_area :description
+    = f.label :course
+    br
+    = f.collection_select :course_id, @course_event, :id, :title, include_blank: true
   .field
     = f.label :start_time
-    = f.datetime_select :start_time
+    = f.datetime_local_field :start_time, class: "form-control", required: true
   .field
     = f.label :end_time
-    = f.datetime_select :end_time
+    = f.datetime_local_field :end_time, class: "form-control", required: true
   .field
     = f.label :address
-    = f.text_field :address
-  .field
-    = f.label :learning_objectives
-    = f.text_field :learning_objectives
+    = f.text_area :address, class: "form-control", required: true
   .field
     = f.label :total_slot
-    = f.number_field :total_slot
+    = f.number_field :total_slot, class: "form-control", required: true
+  .field
+    = f.label :booked_slot
+    = f.number_field :booked_slot, class: "form-control", required: true
+  .field
+    = f.label :cost
+    = f.text_field :cost, class: "form-control", required: true
   .actions = f.submit
