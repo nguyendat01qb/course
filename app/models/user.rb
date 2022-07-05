@@ -4,7 +4,7 @@ class User
   include Devise::JWT::RevocationStrategies::JTIMatcher
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
+         :confirmable
 
   ## Database authenticatable
   field :first_name, type: String, default: ""
@@ -15,9 +15,12 @@ class User
   field :is_author, type: Boolean, default: false
   field :encrypted_password, type: String, default: ""
   field :api_token_digest, type: String, default: ""
-  field :jti, type: String
 
-  index({ jti: 1 }, { unique: true, name: "name_index" })
+  validates :first_name, :length => { :minimum => 10, :allow_blank => false }
+  validates :last_name, :length => { :minimum => 10, :allow_blank => false }
+  validates :email, uniqueness: true, :length => { :minimum => 10, :allow_blank => false }
+  validates :phone, :length => { :minimum => 10, :allow_blank => false }
+  validates :encrypted_password, :length => { :minimum => 10, :allow_blank => false }
 
   ## Recoverable
   field :reset_password_token,   type: String
@@ -40,12 +43,9 @@ class User
   field :unconfirmed_email,    type: String
 
   has_many :courses, dependent: :destroy
-  has_many :course_items, dependent: :destroy
   has_many :carts, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :my_blogs, dependent: :destroy
-  has_many :events, dependent: :destroy
   # has_many :events, dependent: :destroy
   # has_many :topics, dependent: :destroy
 

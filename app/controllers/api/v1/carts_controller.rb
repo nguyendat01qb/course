@@ -1,19 +1,17 @@
 class Api::V1::CartsController < Api::V1::BaseController
-  def index
-    carts = current_user.carts.by_status(User::STATUS[:pending])
-    return render json: error_message('No item in cart') unless carts
-
-    render json: success_message('Successfully', serializers(carts, CartSerializer))
-  end
-
   def create
-    return render json: error_message("Error can't add this course to cart") if params[:course_id].blank?
+    if params[:course_id].present?
+      course_id = params[:course_id]
+      check, message, serializer = Cart::Create.new(course_id, current_user, CartSerializer).execute!
+    else
+      render json: error_message("Error can't add this course to cart")
+    end
 
-    course_id = params[:course_id]
-    check, message, serializer = Cart::Create.new(course_id, current_user, CartSerializer).execute!
-    return render json: error_message(message) unless check
-
-    render json: success_message(message, serializer)
+    if check
+      render json: success_message(message, serializer)
+    else
+      render json: error_message(message)
+    end
   end
 
   def destroy

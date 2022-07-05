@@ -6,10 +6,6 @@ class CartItem
   field :course_description, type: String
   field :course_price, type: Float, default: 0.0
   field :course_image_url, type: String
-  field :author_firstname, type: String
-  field :author_lastname, type: String
-  field :rateAvg, type: Float
-  field :countRate, type: Integer
 
   belongs_to :cart
 

@@ -13,23 +13,23 @@ class Course
   field :rateAvg, type: Float, default: 0.0
   field :countRate, type: Integer, default: 0
 
-  # validates :title, :presence => true
-  # validates :subTitle, :presence => true
-  # validates :desc, :presence => true
-  # validates :descDetail, :presence => true
-  # validates :priorKnowledge, :presence => true
-  # validates :price, :presence => true
-  # validates :discount, :presence => true
+  validates :title, presence: true, :length => { :minimum => 10, :allow_blank => false }
+  validates :subTitle, presence: true, :length => { :minimum => 10, :allow_blank => false }
+  validates :desc, presence: true, :length => { :minimum => 10, :allow_blank => false }
+  validates :descDetail, presence: true, :length => { :minimum => 10, :allow_blank => false }
+  validates :priorKnowledge, presence: true, :length => { :minimum => 5, :allow_blank => false }
+  validates :price, presence: true, :length => { :minimum => 5, :allow_blank => false }
+  validates :discount, presence: true, :length => { :minimum => 5, :allow_blank => false }
 
-  has_many :course_photos, as: :list_image, dependent: :destroy
+  has_many :course_photos, dependent: :destroy
   accepts_nested_attributes_for :course_photos, allow_destroy: true, reject_if: proc { |attributes|
                                                                                   attributes['course_photos'].blank?
                                                                                 }
   belongs_to :user
   belongs_to :category
-  has_many :course_items, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :events, dependent: :destroy
+
+  # index "category.id" => 1
 
   scope :by_category, ->(category_id) { where(category_id: category_id) }
   scope :by_title, ->(value) { where(:title => /.*#{value}.*/) }

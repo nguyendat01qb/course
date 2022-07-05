@@ -1,36 +1,30 @@
 = form_for @course do |f|
-  - if @course.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
-      ul
-        - @course.errors.full_messages.each do |message|
-          li = message
-
+  = render "shared/error_messages", object: @course
   .field
     = f.label :category
     br
     = f.collection_select :category_id, @category, :id, :title, include_blank: true
   .field
     = f.label :title
-    = f.text_field :title, class: "form-control", required: true
+    = f.text_field :title, class: "form-control"
   .field
     = f.label :subTitle
-    = f.text_field :subTitle, class: "form-control", required: true
+    = f.text_field :subTitle, class: "form-control"
   .field
     = f.label :desc
-    = f.text_field :desc, class: "form-control", required: true
+    = f.text_field :desc, class: "form-control"
   .field
     = f.label :descDetail
-    = f.text_area :des_list, class: "form-control", required: true
+    = f.text_area :des_list, class: "form-control"
   .field
     = f.label :priorKnowledge
-    = f.text_area :priorKnowledge, class: "form-control", required: true
+    = f.text_area :priorKnowledge, class: "form-control"
   .field
     = f.label :price
-    = f.text_field :price, class: "form-control", required: true
+    = f.text_field :price, class: "form-control"
   .field
     = f.label :discount
-    = f.text_field :discount, class: "form-control", required: true
+    = f.text_field :discount, class: "form-control"
   .field
     = f.file_field :course_photos, multiple: true, name: "course_photos[course_images][]", class: "upload-image"
   .actions = f.submit

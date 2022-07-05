@@ -13,19 +13,19 @@
             .field
               = f.label :first_name
               br
-              = f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control", required: true
+              = f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control"
             .field
               = f.label :last_name
               br
-              = f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: "form-control", required: true
+              = f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: "form-control"
             .field
               = f.label :phone
               br
-              = f.text_field :phone, autofocus: true, autocomplete: "phone", class: "form-control", required: true
+              = f.text_field :phone, autofocus: true, autocomplete: "phone", class: "form-control"
             .field
               = f.label :email
               br
-              = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true
+              = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               div
                 | Currently waiting confirmation for: 

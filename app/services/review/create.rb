@@ -13,9 +13,10 @@ class Review::Create < ServiceBase
     c_review = { comment: comment, course_id: course_id }
     if rate > 0
       sum_rate = 0
+      count_rate = 0
       course = Course.find(course_id)
-      count_rate = course.reviews.count
       course.reviews.each do |rev|
+        count_rate += 1
         next if (rev.rate.nil? || rev.rate == 0)
         sum_rate += rev.rate
       end

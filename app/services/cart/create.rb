@@ -23,10 +23,9 @@ class Cart::Create < ServiceBase
       end
 
       course = Course.find(course_id)
-      course_image = course.course_photos[0].course_images_url if course.course_photos.present?
+      course_image = Course.find(course_id).course_photos[0].course_images_url if course.course_photos.present?
       cart_item = cart.cart_items.create!(course_id: course.id, course_title: course.title, course_description: course.desc,
-                                          course_price: course.discount, course_image_url: course_image, author_firstname: course.user.first_name,
-                                          author_lastname: course.user.last_name, rateAvg: course.rateAvg, countRate: course.countRate)
+                                          course_price: course.discount, course_image_url: course_image)
 
       total = 0
       total_price = 0.0

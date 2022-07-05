@@ -34,7 +34,7 @@ class CoursesController < ApplicationController
         flash[:success] = 'Course was successfully created.'
         redirect_to course_url(course)
       else
-        flash[:error] = 'Course creation failed'
+        # flash[:error] = 'Course creation failed'
         render :new
       end
     end

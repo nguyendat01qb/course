@@ -37,9 +37,9 @@ function Cart(options) {
     });
   };
 
-  module.delete_cart_item = function () {
+  module.delete_cart_item = function(){
     $(document).on("click", ".delete_cart_item", function (e) {
-      const cart_item_id = $(this).attr("cart_item_id");
+      const cart_item_id = $(this).attr('cart_item_id');
 
       $.ajax({
         url: module.settings.api.cart,
@@ -54,11 +54,11 @@ function Cart(options) {
           console.log(res);
           if (res.code == 200) {
             var data = { cart: res.data };
-            var template = _.template($("#template_carts").text());
+              var template = _.template($("#template_carts").text());
 
-            $("#list_carts").html(template(data));
+              $("#list_carts").html(template(data));
 
-            $(".list_carts").hide();
+              $(".list_carts").hide();
             $.notify(res.message, "success");
           } else {
             $.notify(res.message, "error");
@@ -69,7 +69,7 @@ function Cart(options) {
         },
       });
     });
-  };
+  }
 
   module.init = function () {
     module.add_to_cart();

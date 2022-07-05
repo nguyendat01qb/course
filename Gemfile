@@ -67,3 +67,4 @@ gem 'jsonapi-serializer'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem "mini_magick"
+gem "chartkick"

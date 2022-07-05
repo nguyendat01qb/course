@@ -11,21 +11,59 @@ section.news-section
           | View All Posts
     .news-box
       .row
-        - @list_news[:list_course_new].each do |course|
-          .col-lg-3.col-md-6
-            .blog-post.image_course
-              | <a href="/courses/
-              = course.id
-              | ">
-              = image_tag course.course_photos[0].course_images_url
-              .post-content
-                a.category[href="#"]
-                  | Academics
-                h2
-                  a[href="single-post.html"]
-                    = course.title
-                .post-meta.date
-                  i.material-icons
-                    | access_time
-                  = course.created_at
-        
+        .col-lg-3.col-md-6
+          .blog-post
+            a[href="single-post.html"]
+              = image_tag("blog/blog-image-1.jpg")
+            .post-content
+              a.category[href="#"]
+                | Academics
+              h2
+                a[href="single-post.html"]
+                  | Couple Of Happy College Students Graduated
+              .post-meta.date
+                i.material-icons
+                  | access_time
+                |  June 13, 2018 
+        .col-lg-3.col-md-6
+          .blog-post
+            a[href="single-post.html"]
+              = image_tag("blog/blog-image-2.jpg")
+            .post-content
+              a.category[href="#"]
+                | Government
+              h2
+                a[href="single-post.html"]
+                  | Tips to Developing a Quality Discussion
+              .post-meta.date
+                i.material-icons
+                  | access_time
+                |  June 13, 2018 
+        .col-lg-3.col-md-6
+          .blog-post
+            a[href="single-post.html"]
+              = image_tag("blog/blog-image-3.jpg")
+            .post-content
+              a.category[href="#"]
+                | Design
+              h2
+                a[href="single-post.html"]
+                  | Reflections for the Season of Advent
+              .post-meta.date
+                i.material-icons
+                  | access_time
+                |  June 13, 2018 
+        .col-lg-3.col-md-6
+          .blog-post
+            a[href="single-post.html"]
+              = image_tag("blog/blog-image-4.jpg")
+            .post-content
+              a.category[href="#"]
+                | Business
+              h2
+                a[href="single-post.html"]
+                  | It’s Wonderful to see the Friendships that Develop
+              .post-meta.date
+                i.material-icons
+                  | access_time
+                |  June 13, 2018 

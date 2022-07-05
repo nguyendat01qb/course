@@ -4,6 +4,8 @@ class Category
   field :title, type: String
   field :slug, type: String
 
+  validates :title, :slug, presence: true
+
   has_many :child_categories, class_name: 'Category', dependent: :destroy, foreign_key: :category_id
   belongs_to :parent_category, class_name: 'Category', optional: true, foreign_key: :category_id
 

@@ -23,15 +23,14 @@ function Order(options) {
         data: { cart_id: cart_id },
         dataType: "json",
         success: function (res) {
-          console.log(res);
           $.notify.defaults({ globalPosition: "right" });
           if (res.code == 200) {
-            var data = { cart: [] };
-            var template = _.template($("#template_carts").text());
+            var data = { courses: res.data };
+            //   var template = _.template($("#template_course").text());
 
-            $("#list_carts").html(template(data));
+            //   $("#list_courses").html(template(data));
 
-            $(".list_carts").hide();
+            //   $(".list_course").hide();
             $.notify(res.message, "success");
           } else {
             $.notify(res.message, "error");
@@ -44,9 +43,9 @@ function Order(options) {
     });
   };
 
-  module.delete_cart_item = function () {
+  module.delete_cart_item = function(){
     $(document).on("click", ".delete_cart_item", function (e) {
-      const cart_item_id = $(this).attr("cart_item_id");
+      const cart_item_id = $(this).attr('cart_item_id');
 
       $.ajax({
         url: module.settings.api.cart,
@@ -61,11 +60,11 @@ function Order(options) {
           if (res.code == 200) {
             console.log(res);
             var data = { cart: res.data };
-            var template = _.template($("#template_carts").text());
+              var template = _.template($("#template_carts").text());
 
-            $("#list_carts").html(template(data));
+              $("#list_carts").html(template(data));
 
-            $(".list_carts").hide();
+              $(".list_carts").hide();
             $.notify(res.message, "success");
           } else {
             $.notify(res.message, "error");
@@ -76,7 +75,7 @@ function Order(options) {
         },
       });
     });
-  };
+  }
 
   module.init = function () {
     module.add_order();

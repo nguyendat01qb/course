@@ -29,5 +29,19 @@ ActiveAdmin.register_page "Dashboard" do
     #     end
     #   end
     # end
+    panel 'The categories of the most ordered product items' do
+      render 'admin/categories/columnchart'
+    end
+
+    # panel 'The products of the most ordered product items' do
+    #   productcounts = OrderItem.all.group(:product_id).count
+    #   products = Product.all.index_by(&:id)
+    #   @products_most = {}
+    #   productcounts.each do |index, sum|
+    #     @products_most[products[index].title] ||= 0
+    #     @products_most[products[index].title] += sum
+    #   end
+    #   render partial: 'admin/products/columnchart', locals: {products_most: @products_most}
+    # end
   end # content
 end

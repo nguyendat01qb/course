@@ -1,6 +1,5 @@
 = javascript_include_tag "course/review.js"
 = javascript_include_tag "course/destroy.js"
-= javascript_include_tag "course_item/create.js"
 section.page-banner-section
   .container
     h1
@@ -124,24 +123,6 @@ section.page-banner-section
               .panel-content
                 .panel-content-inner
                   |  This lesson is private, for full access to all lessons you need to buy this course. 
-          .form_create_course_item
-            .close_icon 
-              | x
-            .title 
-              | CREATE COURSE ITEM
-            .form-group
-              label[for="inputAddress"]
-                | Title
-              input#inputTitle.form-control[type="text" placeholder="Enter title"]
-            .form-group
-              label[for="inputAddress2"]
-                | Description
-              textarea#inputDescription.form-control[type="text" placeholder="Enter Description..."]
-            .form-group
-              input#video[ type="file"]
-            button.btn.btn-primary.create_course
-              | Create course
-
           .course-section
             h3
               | 2. Getting Started
@@ -295,8 +276,6 @@ section.page-banner-section
               = @course.discount
               a.button-one[href="#"]
                 | Take this course
-              .add_new_course_btn 
-                | ADD NEW COURSE ITEM
               .product-meta-info-list
                 h3
                   | Course Features

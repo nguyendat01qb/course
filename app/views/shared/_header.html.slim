@@ -131,7 +131,7 @@ header.clearfix
                       a[href="#"]
                         = category.title
           li.drop-link
-            a[href="/my_blogs"]
+            a[href="blog"]
               | Blog 
               i.fa.fa-angle-down
             ul.dropdown
@@ -197,10 +197,10 @@ header.clearfix
                   = image_tag("setting.png",class: "settings-icon")
                   = link_to "Create course", new_course_path
                   = image_tag("arrow.png", :style => "width: 10px")
-              .settings-links
-                = image_tag("setting.png",class: "settings-icon")
-                = link_to "My course", my_courses_path
-                = image_tag("arrow.png", :style => "width: 10px")
+                .settings-links
+                  = image_tag("setting.png",class: "settings-icon")
+                  = link_to "My course", my_courses_path
+                  = image_tag("arrow.png", :style => "width: 10px")
               .settings-links
                 = image_tag("setting.png",class: "settings-icon")
                 = link_to t('header.help'), edit_user_registration_path
